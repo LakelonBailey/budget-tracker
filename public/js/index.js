@@ -12,7 +12,15 @@ fetch("/api/transaction")
     populateTotal();
     populateTable();
     populateChart();
-  });
+});
+
+const registerServiceWorker = () => {
+  if("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./js/service-worker.js")
+      .then(() => console.log("Service Worker registered successfully."))
+      .catch(error => console.log("Service Worker registration failed:", error));
+  }
+}
 
 function populateTotal() {
   // reduce transaction amounts to a single total value
@@ -143,6 +151,7 @@ function sendTransaction(isAdding) {
     amountEl.value = "";
   });
 }
+registerServiceWorker();
 
 document.querySelector("#add-btn").onclick = function() {
   sendTransaction(true);
